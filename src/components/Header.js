@@ -6,11 +6,13 @@ import { db, storage, auth } from "../firebase"
 import { AuthContext } from "../context/AuthContext"
 import { ChatContext } from "../context/ChatContext"
 import { MenuIcon } from "../styles/icons"
+import { NotificationContext } from "../context/NotificationContext";
 import "../styles/style.css"
 
 const Header = ({ type, showSidebar }) => {
     const { loggedUser } = useContext(AuthContext)
     const { data, dispatch } = useContext(ChatContext)
+    const { setNotification } = useContext(NotificationContext)
 
     // when user changes profile pic, setUrl is called and picture updates without page refresh
     const [url, setUrl] = useState(loggedUser.photoURL)
@@ -32,10 +34,10 @@ const Header = ({ type, showSidebar }) => {
 
     }, []);
 
-
     const selectImage = (image) => {
         if (image) {
             if (image.size > 1_048_576) {
+                setNotification("Image too big!")
                 throw new Error("Image too big!")
             }
             const storageRef = ref(storage, `${loggedUser.displayName}_profile_picture`)
@@ -72,7 +74,7 @@ const Header = ({ type, showSidebar }) => {
                                 })
                             })
                         } catch (error) {
-                            console.error("Error chaning profile picture", error);
+                            console.error(error);
                         }
                     })
                 })

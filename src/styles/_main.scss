@@ -314,18 +314,31 @@ body {
     max-width: 80%;
 
     p {
+        margin-right: auto;
+        padding: 0.6rem;
         align-self: center;
         max-width: max-content;
-        padding: 0.6rem;
         background-color: #efd5de;
         border-radius: 0 15px 15px 15px;
-
         background-color: $main-header-color;
         color: $sidebar-hover-font-color;
     }
 
+    // the sender of the message doesn't have his profile pic displayed so he has more space.
+    // that means that the max width of the sended image in chat should be different for the
+    // sender and the receiver, in order to make them appear equal in size
+    img:not(.small-picture) {
+        border-radius: 10px;
+        margin: 0.5rem 0;
+        max-width: 50%;
+    }
+
     @include small {
         font-size: 1rem;
+
+        img:not(.small-picture) {
+            max-width: 100%;
+        }
     }
 }
 
@@ -339,13 +352,25 @@ body {
     }
 
     p {
-        padding: 0.6rem;
+        margin-left: auto;
         margin-right: 0;
+        padding: 0.6rem;
         max-width: max-content;
         background-color: #c2ebff;
         border-radius: 15px 0 15px 15px;
         background-color: $sidebar-font-color;
         color: $popup-color;
+    }
+
+    img:not(.small-picture) {
+        margin-left: auto;
+        max-width: 47%;
+    }
+
+    @include small {
+        img:not(.small-picture) {
+            max-width: 80%;
+        }
     }
 }
 
@@ -359,15 +384,6 @@ body {
     @include small {
         display: block;
     }
-}
-
-// DELETE MAYBE
-.logout-button {
-    background: none;
-    border: none;
-    fill: white;
-
-    cursor: pointer;
 }
 
 .big-picture {
@@ -415,13 +431,13 @@ body {
         box-shadow: 0px 0px 25px 2px rgba(0, 0, 0, 0.12);
     }
 
-    button {
+    button, label{
         background: none;
         border: none;
         cursor: pointer;
         @include flex-center();
         padding: 0;
-        margin: 0.5rem;
+        margin-right: 0.4rem;
         align-self: center;
         fill: $sidebar-font-color;
         height: 30px;
@@ -437,7 +453,6 @@ body {
     position: absolute;
     background-color: $popup-color;
     padding: 0.8rem;
-    // width: 200px;
     font-size: 1.2rem;
     border-radius: 4px;
     transition: 0.3s;
@@ -489,14 +504,17 @@ body {
 }
 
 .notification {
+    font-family: "Lata", sans-serif;
+    z-index: 10;
     font-size: 1.6rem;
     text-align: center;
     padding: 1rem;
     border-radius: 5px;
+    border: 2px solid black;
     position: absolute;
     top: 5%;
-    background-color: $main-header-color;
-    color: $main-header-font-color;
+    background-color: rgb(183, 19, 19);
+    color: rgba(255, 255, 255, 0.746);
     transition: 0.3s;
 
     @include small {

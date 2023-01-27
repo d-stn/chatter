@@ -13,8 +13,6 @@ const Message = ({ message }) => {
         ref.current?.scrollIntoView({ behavior: "smooth" });
     }, [message]);
 
-
-
     return (
         <div ref={ref} className={`message ${message.senderId === loggedUser.uid && "sender"}`}>
             <div className="messageInfo">
@@ -28,9 +26,9 @@ const Message = ({ message }) => {
                     alt=""
                 />
             </div>
-            <div style={{ display: "flex" }}>
-                <p>{message.text}</p>
-                {message.img && <img src={message.img} alt="" />}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+                {message.text && <p>{message.text}</p>}
+                {message.image && <img className="chat-image" src={message.image} alt="" />}
             </div>
         </div>
     );
